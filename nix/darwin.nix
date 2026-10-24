@@ -5,6 +5,29 @@
   ...
 }:
 
+let
+  # Pin the official macOS binary until nixpkgs provides this release.
+  nodejs24 = pkgs.stdenvNoCC.mkDerivation {
+    pname = "nodejs";
+    version = "24.22.1";
+
+    src = pkgs.fetchurl {
+      url = "https://nodejs.org/dist/v24.22.1/node-v24.22.1-darwin-arm64.tar.xz";
+      sha256 = "654ba79de6155647e22321932b45f2a1ccb705976cc337c9b8e278beb085a628";
+    };
+
+    installPhase = ''
+      runHook preInstall
+      mkdir -p "$out"
+      cp -R bin include lib share "$out/"
+      runHook postInstall
+    '';
+
+    # Preserve the signed upstream binaries and npm's portable shebangs.
+    dontFixup = true;
+    meta.platforms = [ "aarch64-darwin" ];
+  };
+in
 {
   nix.settings.experimental-features = [
     "nix-command"
@@ -36,7 +59,7 @@
     gnused
     gnutar
     jq
-    nodejs_24
+    nodejs24
     ripgrep
     starship
     tree

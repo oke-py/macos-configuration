@@ -68,7 +68,7 @@ $ sudo /run/current-system/sw/bin/darwin-rebuild switch --flake .#uranus
 | --- | --- | --- |
 | CLI packages | `environment.systemPackages` in `nix/darwin.nix` | Command-line tools are installed from nixpkgs. |
 | AI CLIs | `claude-code` and `codex` in `nix/darwin.nix` | Claude Code and Codex CLI are installed from nixpkgs. |
-| Node.js | `nodejs_24` in `nix/darwin.nix` | Node.js is installed from nixpkgs instead of mise. |
+| Node.js | `nodejs24` in `nix/darwin.nix` | Official macOS ARM64 binary pinned to v24.22.1 with a SHA-256 checksum. |
 | macOS defaults | `system.defaults` in `nix/darwin.nix` | Dock, Finder, desktop services, and screenshot defaults are managed by nix-darwin. |
 | zsh | `home.file.".zshrc"` in `nix/home.nix` | The zshrc content lives in `nix/zshrc`. |
 | Git | `programs.git.settings` in `nix/home.nix` | Global Git configuration is managed by Home Manager. |
