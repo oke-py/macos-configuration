@@ -100,31 +100,3 @@ to 2026.10.19 or later and pip to a release with the fixed vendored certifi
 uv, and check existing virtual environments separately. See the
 [uv release notes](https://github.com/astral-sh/uv/releases/tag/0.13.5) and
 [Nix mitigation tracker](https://github.com/NixOS/nixpkgs/issues/576485).
-
-### manual cleanup
-
-After applying the Nix configuration, remove old mise state if it is no longer needed.
-
-```bash
-$ rm -rf ~/.config/mise ~/.local/share/mise
-```
-
-After verifying the Nix-managed Claude Code and Codex CLI installations, remove old manual installs if they are no longer needed.
-
-Homebrew is no longer on `PATH`, but the previous formulae may still exist under `/opt/homebrew`. Most leaves are now managed by Nix. `go`, `k6`, and `kubectl` are intentionally not migrated because they are not currently needed.
-
-Review the remaining Homebrew leaves before uninstalling them.
-
-```bash
-$ /opt/homebrew/bin/brew leaves
-```
-
-If the list only contains replaced or unused tools, remove the old formulae and their unused dependencies.
-
-```bash
-$ /opt/homebrew/bin/brew uninstall curl fzf gh ghq git gnu-sed gnu-tar go jq k6 libomp mise starship tree uv wget yq
-$ /opt/homebrew/bin/brew autoremove
-$ /opt/homebrew/bin/brew cleanup
-```
-
-Keep Homebrew itself installed until GUI application management is revisited.
